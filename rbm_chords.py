@@ -120,6 +120,9 @@ with tf.Session() as sess:
                 tr_x = song[i:i+batch_size]
                 sess.run(updt, feed_dict={x: tr_x})
 
+
+    saver = tf.train.Saver()
+    saver.save(sess, 'jazz_model', global_step=1000)
     #Now the model is fully trained, so let's make some music! 
     #Run a gibbs chain where the visible nodes are initialized to 0
     sample = gibbs_sample(1).eval(session=sess, feed_dict={x: np.zeros((50, n_visible))})
