@@ -26,7 +26,7 @@ def get_songs(path):
             if np.array(song).shape[0] > 50:
                 songs.append(song)
         except Exception as e:
-            raise e           
+            continue          
         i++
     return songs
 
