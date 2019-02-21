@@ -18,9 +18,9 @@ for f in tqdm(files):
     try:
         song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
 
-        if np.array(song).shape[0] > 10:
+        #if np.array(song).shape[0] > 10:
             #songs.append(song)
-            songs = np.concatenate((songs,song))
+        songs = np.concatenate((songs,song))
     except Exception as e:
         raise e
 print ("samlpes merging ...")
