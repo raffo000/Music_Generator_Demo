@@ -16,7 +16,7 @@ import midi_manipulation
 
 def get_songs(path):
     files = glob.glob('{}/*.mid*'.format(path))
-    print file
+    print (file)
     songs = []
     for f in tqdm(files):
         try:
