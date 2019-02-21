@@ -23,6 +23,6 @@ for f in tqdm(files):
             songs = np.concatenate((songs,song))
     except Exception as e:
         raise e
-print "samlpes merging ..."
+print ("samlpes merging ...")
 print np.shape(songs)
 midi_manipulation.noteStateMatrixToMidi(songs, "final")
