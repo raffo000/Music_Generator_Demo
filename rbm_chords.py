@@ -27,7 +27,7 @@ def get_songs(path):
                 songs.append(song)
         except Exception as e:
             continue          
-        i++
+        i+=1
     return songs
 
 songs = get_songs('./jazz') #These songs have already been converted from midi to msgpack
