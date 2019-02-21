@@ -114,7 +114,7 @@ with tf.Session() as sess:
             #Here we reshape the songs so that each training example is a vector with num_timesteps x 2*note_range elements
             song = np.array(song)
             song = song[:int(np.floor(song.shape[0]/num_timesteps)*num_timesteps)]
-            song = np.reshape(song, [song.shape[0]/num_timesteps, song.shape[1]*num_timesteps])
+            song = np.reshape(song, [song.shape[0]//num_timesteps, song.shape[1]*num_timesteps])
             #Train the RBM on batch_size examples at a time
             for i in range(1, len(song), batch_size): 
                 tr_x = song[i:i+batch_size]
