@@ -17,17 +17,13 @@ import midi_manipulation
 def get_songs(path):
     files = glob.glob('{}/*.mid*'.format(path))
     songs = []
-    i=0
     for f in tqdm(files):
-        if i > 500:
-            break
         try:
             song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
             if np.array(song).shape[0] > 50:
                 songs.append(song)
         except Exception as e:
             continue          
-        i+=1
     return songs
 
 songs = get_songs('./jazz') #These songs have already been converted from midi to msgpack
