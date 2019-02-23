@@ -15,7 +15,7 @@ from tqdm import tqdm
 import midi_manipulation
 
 def get_songs(path):
-    files = glob.glob('{}/*.mid*'.format(path))
+    files = glob.glob('{}/30*.mid*'.format(path))
     songs = []
     for f in tqdm(files):
         try:
