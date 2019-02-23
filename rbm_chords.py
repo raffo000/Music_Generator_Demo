@@ -1,5 +1,6 @@
 #This file is heavily based on Daniel Johnson's midi manipulation code in https://github.com/hexahedria/biaxial-rnn-music-composition
 
+import os
 import numpy as np
 import pandas as pd
 #import msgpack
