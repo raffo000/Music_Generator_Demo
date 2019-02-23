@@ -9,7 +9,7 @@ import midi_manipulation
 
 #files = glob.glob('{}/*.mid*'.format(path))
 try:
-    files = glob.glob('./generated*.mid*')
+    files = glob.glob('./generated/generated*.mid*')
 except Exception as e:
     raise e
 
