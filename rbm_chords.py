@@ -17,13 +17,17 @@ import midi_manipulation
 def get_songs(path):
     files = glob.glob('{}/*.mid*'.format(path))
     songs = []
+    i=0
     for f in tqdm(files):
+        if i > 10:
+            break
         try:
             song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
             if np.array(song).shape[0] > 50:
                 songs.append(song)
         except Exception as e:
             continue          
+        i+=1
     return songs
 
 songs = get_songs('./jazz') #These songs have already been converted from midi to msgpack
@@ -122,7 +126,7 @@ with tf.Session() as sess:
 
 
     saver = tf.train.Saver()
-    saver.save(sess, 'jazz_model', global_step=1000)
+    saver.save(sess, './model/model.ckpt', global_step=1000)
     #Now the model is fully trained, so let's make some music! 
     #Run a gibbs chain where the visible nodes are initialized to 0
     sample = gibbs_sample(1).eval(session=sess, feed_dict={x: np.zeros((50, n_visible))})

@@ -57,8 +57,8 @@ updt = [W.assign_add(W_adder), bv.assign_add(bv_adder), bh.assign_add(bh_adder)]
 
 ### Run the graph!
 sess=tf.Session()
-saver = tf.train.import_meta_graph('./model/jazz_model-1000.meta')
-saver.restore(sess,tf.train.latest_checkpoint('./model'))
+saver = tf.train.Saver()
+saver.restore(sess, "./model/model.ckpt")
 
 #Now the model is fully trained, so let's make some music! 
 #Run a gibbs chain where the visible nodes are initialized to 0
