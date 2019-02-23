@@ -19,7 +19,7 @@ def get_songs(path):
     songs = []
     i=0
     for f in tqdm(files):
-        if i > 10:
+        if i > 100:
             break
         try:
             song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
@@ -41,9 +41,9 @@ lowest_note = midi_manipulation.lowerBound #the index of the lowest note on the 
 highest_note = midi_manipulation.upperBound #the index of the highest note on the piano roll
 note_range = highest_note-lowest_note #the note range
 
-num_timesteps  = 15 #This is the number of timesteps that we will create at a time
+num_timesteps  = 8 #This is the number of timesteps that we will create at a time
 n_visible      = 2*note_range*num_timesteps #This is the size of the visible layer. 
-n_hidden       = 50 #This is the size of the hidden layer
+n_hidden       = 100 #This is the size of the hidden layer
 
 num_epochs = 200 #The number of training epochs that we are going to run. For each epoch we go through the entire data set.
 batch_size = 100 #The number of training examples that we are going to send through the RBM at a time. 
@@ -52,10 +52,17 @@ lr         = tf.constant(0.005, tf.float32) #The learning rate of our model
 ### Variables:
 # Next, let's look at the variables we're going to use:
 
-x  = tf.placeholder(tf.float32, [None, n_visible], name="x") #The placeholder variable that holds our data
-W  = tf.Variable(tf.random_normal([n_visible, n_hidden], 0.01), name="W") #The weight matrix that stores the edge weights
-bh = tf.Variable(tf.zeros([1, n_hidden],  tf.float32, name="bh")) #The bias vector for the hidden layer
-bv = tf.Variable(tf.zeros([1, n_visible],  tf.float32, name="bv")) #The bias vector for the visible layer
+#The placeholder variable that holds our data
+x  = tf.placeholder(tf.float32, [None, n_visible], name="x") 
+
+#The weight matrix that stores the edge weights
+W  = tf.Variable(tf.random_normal([n_visible, n_hidden], 0.01), name="W") 
+
+#The bias vector for the hidden layer
+bh = tf.Variable(tf.zeros([1, n_hidden],  tf.float32, name="bh")) 
+
+#The bias vector for the visible layer
+bv = tf.Variable(tf.zeros([1, n_visible],  tf.float32, name="bv")) 
 
 
 #### Helper functions. 
