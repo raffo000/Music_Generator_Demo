@@ -109,7 +109,7 @@ updt = [W.assign_add(W_adder), bv.assign_add(bv_adder), bh.assign_add(bh_adder)]
 ### Run the graph!
 # Now it's time to start a session and run the graph! 
 
-with tf.Session() as sess:
+with tf.Session('grpc://' + os.environ['COLAB_TPU_ADDR']) as sess:
     #First, we train the model
     #initialize the variables of the model
     init = tf.global_variables_initializer()
