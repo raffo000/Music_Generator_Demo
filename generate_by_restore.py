@@ -37,28 +37,10 @@ W  = tf.Variable(tf.random_normal([n_visible, n_hidden], 0.01), name="W") #The w
 bh = tf.Variable(tf.zeros([1, n_hidden],  tf.float32, name="bh")) #The bias vector for the hidden layer
 bv = tf.Variable(tf.zeros([1, n_visible],  tf.float32, name="bv")) #The bias vector for the visible layer
 
-### Training Update Code
-# Now we implement the contrastive divergence algorithm. First, we get the samples of x and h from the probability distribution
-#The sample of x
-x_sample = gibbs_sample(1) 
-#The sample of the hidden nodes, starting from the visible state of x
-h = sample(tf.sigmoid(tf.matmul(x, W) + bh)) 
-#The sample of the hidden nodes, starting from the visible state of x_sample
-h_sample = sample(tf.sigmoid(tf.matmul(x_sample, W) + bh)) 
-
-#Next, we update the values of W, bh, and bv, based on the difference between the samples that we drew and the original values
-size_bt = tf.cast(tf.shape(x)[0], tf.float32)
-W_adder  = tf.multiply(lr/size_bt, tf.subtract(tf.matmul(tf.transpose(x), h), tf.matmul(tf.transpose(x_sample), h_sample)))
-bv_adder = tf.multiply(lr/size_bt, tf.reduce_sum(tf.subtract(x, x_sample), 0, True))
-bh_adder = tf.multiply(lr/size_bt, tf.reduce_sum(tf.subtract(h, h_sample), 0, True))
-#When we do sess.run(updt), TensorFlow will run all 3 update steps
-updt = [W.assign_add(W_adder), bv.assign_add(bv_adder), bh.assign_add(bh_adder)]
-
-
 ### Run the graph!
 sess=tf.Session()
 saver = tf.train.Saver()
-saver.restore(sess, "./model/model.ckpt")
+saver.restore(sess, "./model/checkpoint")
 
 #Now the model is fully trained, so let's make some music! 
 #Run a gibbs chain where the visible nodes are initialized to 0
