@@ -19,7 +19,7 @@ def get_songs(path):
     songs = []
     i=0
     for f in tqdm(files):
-        if i > 1:
+        if i > 500:
             break
         try:
             song = np.array(midi_manipulation.midiToNoteStateMatrix(f))
